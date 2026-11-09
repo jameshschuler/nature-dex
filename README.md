@@ -2,21 +2,6 @@
 
 Best natures, move lists and catch locations for the 386 Gen 1–3 Pokémon in Pokémon Heart & Soul v2.0.6, a GBA ROM hack.
 
-Live page: https://claude.ai/artifact/F4HTvore6s8PDEMTnZjPHL
-
-## Layout
-
-| Path | What it is |
-|---|---|
-| `src/App.tsx` | Page shell: filters, the dex list and the reference sheets. |
-| `src/components/` | Controls, settings dialog, dex rows, move sheet, nature chart and tips (React + Tailwind, lucide icons). |
-| `src/lib/dex.ts` | Nature ranking (`recommend()`, `OVERRIDES`, split and learnset settings). |
-| `src/lib/data.ts` | Loads `data/hns.json` into the bundle and builds the PokeAPI sprite URLs. |
-| `scripts/extract_hns.py` | Turns the official H&S Pokédex and move pages into `data/hns.json`. |
-| `scripts/fetch.sh` | Downloads the source pages and runs the extractor. |
-| `data/hns.json` | Extracted species, learnsets, locations and moves. |
-| `dist/index.html` | The built page (not checked in): one file with the data, CSS and JS inlined. Sprites load from PokeAPI. |
-
 ## Develop and build
 
 ```sh
@@ -24,12 +9,6 @@ npm install
 npm run dev     # local dev server
 npm run build   # typecheck, then write dist/index.html
 ```
-
-## CI and deploy
-
-- **CI** (`.github/workflows/ci.yml`) runs on pushes to `main` and on pull requests. It installs with `npm ci`, typechecks and builds, checks that the data scripts parse, and uploads `dist/index.html` as a build artifact.
-- **Render** (`render.yaml`) deploys the site as a static site from `dist/`. In Render, choose **New → Blueprint** and pick this repo. Pushes to `main` deploy only after the GitHub checks pass, and pull requests get preview deploys.
-- Both use the Node version in `.node-version`.
 
 ## Refresh data after a new H&S release
 
