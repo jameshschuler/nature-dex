@@ -1,0 +1,59 @@
+@import "tailwindcss";
+
+/* Theme tokens: light by default, dark from the OS or a data-theme override. */
+:root {
+  --bg: #eef0f5; --panel: #ffffff; --sunk: #e3e6ee; --line: #d3d7e2;
+  --fg: #171b29; --muted: #5a6175; --gold: #a97a0c; --gold-soft: #f6ead0;
+  --silver: #7b8497; --up: #1f7a4d; --down: #b2423a;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0f121b; --panel: #171b27; --sunk: #1e2331; --line: #2b3142;
+    --fg: #e6e8ef; --muted: #98a0b4; --gold: #e2b54b; --gold-soft: #3a3020;
+    --silver: #a6aec0; --up: #5fc893; --down: #ec8a80;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0f121b; --panel: #171b27; --sunk: #1e2331; --line: #2b3142;
+  --fg: #e6e8ef; --muted: #98a0b4; --gold: #e2b54b; --gold-soft: #3a3020;
+  --silver: #a6aec0; --up: #5fc893; --down: #ec8a80;
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-panel: var(--panel);
+  --color-sunk: var(--sunk);
+  --color-line: var(--line);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-gold: var(--gold);
+  --color-gold-soft: var(--gold-soft);
+  --color-silver: var(--silver);
+  --color-up: var(--up);
+  --color-down: var(--down);
+  --font-display: "Fredoka", ui-rounded, system-ui, sans-serif;
+  --font-sans: "Figtree", system-ui, -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+}
+
+/* Type dots: mid-tone so they read on both themes. */
+@theme {
+  --color-t-normal: #a8a77a; --color-t-fire: #e8743b; --color-t-water: #4a8fe0; --color-t-electric: #e5c22c;
+  --color-t-grass: #5bb35a; --color-t-ice: #6cc9c7; --color-t-fighting: #c2402f; --color-t-poison: #a046a0;
+  --color-t-ground: #d1a84f; --color-t-flying: #8f9ef0; --color-t-psychic: #f0577f; --color-t-bug: #9db027;
+  --color-t-rock: #b39d45; --color-t-ghost: #6f5a9c; --color-t-dragon: #6a44f0; --color-t-dark: #6b5a4d;
+  --color-t-steel: #9ea6bd; --color-t-fairy: #e48fbd;
+}
+
+body {
+  @apply bg-bg text-fg font-sans text-sm/[1.45] antialiased;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 20px 48px;
+}
+body::before {
+  content: ""; position: fixed; inset: 0 0 auto; z-index: 10;
+  height: env(safe-area-inset-top, 0px); background: var(--bg);
+}

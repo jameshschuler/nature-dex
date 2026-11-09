@@ -1,0 +1,34 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .node-version
+          cache: npm
+      - run: npm ci
+      # Typecheck, then build the single-file page.
+      - run: npm run build
+      - name: Check data scripts parse
+        run: |
+          python3 -m py_compile scripts/extract_hns.py
+          sh -n scripts/fetch.sh
+      - uses: actions/upload-artifact@v7
+        with:
+          name: nature-hunter-dex
+          path: dist/index.html
